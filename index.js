@@ -30,6 +30,7 @@ app.post('/api/province', (req, res) => {
     if (Id == null || Name == null || Full_name == null || Latitude == null || Longitude == null || Display_order == null) {
         res.status(400).send("Faltan campos o son nulos");
         }
+        //SIEMPRE DEVUELVE NULL
     else {
         provincesArray.push(new {
             id: Id, 
