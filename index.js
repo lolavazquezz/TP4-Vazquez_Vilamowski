@@ -27,7 +27,7 @@ app.post('/api/province', (req, res) => {
     const Latitude = ValidacionesHelper.getIntegerOrDefault(parseInt(req.query.latitude), null);
     const Longitude = ValidacionesHelper.getIntegerOrDefault(parseInt(req.query.longitude), null);
     const Display_order = ValidacionesHelper.getIntegerOrDefault(req.query.display_order, null);
-    if (Id == null || Name == null || Full_name == null || Latitude == null || Longitude == null || Display_order == null) {
+    if (Id == null || !Id || Name == null || !Name || Name.length < 3 || Full_name == null || Full_name.length < 3 || !Full_name || Latitude == null || !Latitude || Longitude == null || !Longitude || Display_order == null || !Display_order) {
         res.status(400).send("Faltan campos o son nulos");
         }
         //SIEMPRE DEVUELVE NULL
@@ -42,6 +42,32 @@ app.post('/api/province', (req, res) => {
         });
         res.status(201).send("Provincia creada satisfactoriamente");
     }    
+})
+
+app.put('/api/province', (req, res) => { 
+    let Id = parseInt(req.query.id);
+    let newName = ValidacionesHelper.getStringOrDefault(req.query.name, null);
+    let newFull_name = ValidacionesHelper.getStringOrDefault(req.query.full_name, null);
+    let provinceI = provincesArray.indexOf(p => p.id === Id);
+    if (provinceI != -1 ){
+        provincesArray[provinceI].name = newName;
+        provincesArray[provinceI].full_name = newFull_name;
+        res.status(201).send("Provincia modificada satisfactoriamente");
+    }
+    else if (provinceI == -1) res.status(404).send("No existe una provincia con ese ID");
+    else if (newName == null || !newName || newName.length < 3 || newFull_name == null || newFull_name.length < 3){
+        res.status(400).send("Faltan campos o son nulos");
+    }
+})
+
+app.delete('/api/province/:id', (req, res) => {
+    const Id = req.params.id;
+    let provinceI = provincesArray.indexOf(p => p.id === Id);
+    if (provinceI != -1) {
+        provincesArray.splice(provinceI, 1);
+        res.status(200).send("Provincia eliminada correctamente" );
+    }
+    else res.status(404).send("No existe una provincia con ese id");
 })
 
 app.listen(port, () => {
