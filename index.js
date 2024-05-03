@@ -30,16 +30,16 @@ app.post('/api/province', (req, res) => {
     if (Id == null || !Id || Name == null || !Name || Name.length < 3 || Full_name == null || Full_name.length < 3 || !Full_name || Latitude == null || !Latitude || Longitude == null || !Longitude || Display_order == null || !Display_order) {
         res.status(400).send("Faltan campos o son nulos");
         }
-        //SIEMPRE DEVUELVE NULL
     else {
-        provincesArray.push(new {
+        let newProvince = {
             id: Id, 
             name: Name, 
             full_name: Full_name, 
             latitude: Latitude, 
             longitude: Longitude, 
             display_order: Display_order
-        });
+        }
+        provincesArray.push(newProvince);
         res.status(201).send("Provincia creada satisfactoriamente");
     }    
 })
@@ -48,11 +48,11 @@ app.put('/api/province', (req, res) => {
     let Id = parseInt(req.query.id);
     let newName = ValidacionesHelper.getStringOrDefault(req.query.name, null);
     let newFull_name = ValidacionesHelper.getStringOrDefault(req.query.full_name, null);
-    let provinceI = provincesArray.indexOf(p => p.id === Id);
+    let provinceI = provincesArray.findIndex(p => p.id === Id);
     if (provinceI != -1 ){
         provincesArray[provinceI].name = newName;
         provincesArray[provinceI].full_name = newFull_name;
-        res.status(201).send("Provincia modificada satisfactoriamente");
+        res.status(201).send("La provincia " + provincesArray[provinceI].full_name + " fue modificada satisfactoriamente ");
     }
     else if (provinceI == -1) res.status(404).send("No existe una provincia con ese ID");
     else if (newName == null || !newName || newName.length < 3 || newFull_name == null || newFull_name.length < 3){
@@ -61,8 +61,8 @@ app.put('/api/province', (req, res) => {
 })
 
 app.delete('/api/province/:id', (req, res) => {
-    const Id = req.params.id;
-    let provinceI = provincesArray.indexOf(p => p.id === Id);
+    let Id = parseInt(req.params.id);
+    let provinceI = provincesArray.findIndex(p => p.id === Id);
     if (provinceI != -1) {
         provincesArray.splice(provinceI, 1);
         res.status(200).send("Provincia eliminada correctamente" );
@@ -73,3 +73,11 @@ app.delete('/api/province/:id', (req, res) => {
 app.listen(port, () => {
 console.log(`Example app listening on port ${port}`)
 })
+
+/*
+//index
+import provinciasRouter from "provincis-AbortController.js"
+
+application.use("/:id", provinciasRouter)
+application.use("/llamada", provinciasRouter)
+*/
