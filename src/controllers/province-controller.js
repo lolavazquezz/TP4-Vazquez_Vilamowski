@@ -1,8 +1,8 @@
 import {Router} from "express";
-import { StatusCodes } from "http-status-codes";
+import {StatusCodes} from "http-status-codes";
 import provincesArray from "../entities/province.js";
 import ValidacionesHelper from "../helpers/validaciones-helper.js";
-import ProvinceService from './../services/province-service.js'
+import ProvinceService from './../services/province-service.js';
 const router = Router()
 const svc = new ProvinceService();
 
@@ -10,10 +10,10 @@ router.get('', async (req, res) => {
     const returnArray = await svc.getAllAsync();
     res.status(200).send(returnArray);
 })
-        
-router.get('/:id', async (req, res) => { 
+
+router.get('/:id', async (req, res) => {
     let Id = parseInt(req.params.id);
-    let province = provincesArray.find(p => p.id === Id);
+    const returnArray = await svc.getByIdAsync(Id);
     if (province != null) res.status(200).send(province);
     else res.status(404).send("No existe una provincia con ese ID");
 })

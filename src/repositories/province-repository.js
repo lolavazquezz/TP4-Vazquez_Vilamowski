@@ -7,9 +7,10 @@ export default class ProvinceRepository {
  getAllAsync = async () => {
     let returnArray = provincesArray;
     return returnArray;
+    // habia algo de BD que esta en la presentacion de 08-Arquitectura
  }
  getByIdAsync = async (id) => {
-    returnArray = provincesArray.find(p => p.id === id);;
+    let returnArray = provincesArray.find(p => p.id === id);
     return returnArray;
  }
  createAsync = async (entity) => {
