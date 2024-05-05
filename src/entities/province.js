@@ -1,7 +1,7 @@
 const provincesArray = [
     {
         id: 1,
-        name: "BA",
+        name: "BsAs",
         full_name: "Buenos Aires",
         latitude: 53.9333,
         longitude: -116.5765,
