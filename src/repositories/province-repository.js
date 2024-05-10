@@ -63,9 +63,9 @@ export default class ProvinceRepository {
    else if (provinceI != -1 ){
       if (Name != null) provincesArray[provinceI].name = Name; 
       if (Full_name != null) provincesArray[provinceI].full_name = Full_name; 
-      if (Latitude != isNaN) provincesArray[provinceI].latitude = Latitude; 
-      if (Longitude != isNaN) provincesArray[provinceI].longitude = Longitude; 
-      if (Display_order != isNaN) provincesArray[provinceI].display_order = Display_order; 
+      if (Latitude) provincesArray[provinceI].latitude = Latitude;       
+      if (Longitude) provincesArray[provinceI].longitude = Longitude; 
+      if (Display_order) provincesArray[provinceI].display_order = Display_order; 
       mensaje = 201;
    }
    else if (provinceI == -1) mensaje = 404;
