@@ -23,9 +23,16 @@ export default class ProvinceRepository {
    const Latitude = ValidacionesHelper.getIntegerOrDefault(parseInt(entity.latitude), null);
    const Longitude = ValidacionesHelper.getIntegerOrDefault(parseInt(entity.longitude), null);
    const Display_order = ValidacionesHelper.getIntegerOrDefault(entity.display_order, null);
-   if (Id == null || !Id || Name == null || !Name || Name.length < 3 || Full_name == null || Full_name.length < 3 || !Full_name || Latitude == null || !Latitude || Longitude == null || !Longitude || Display_order == null || !Display_order) {
-      mensaje = false;
+ 
+  if (Id == null ||  Name == null || Full_name == null || Latitude == null|| Longitude == null || Display_order == null){
+      mensaje = "son nulos";
   }
+  if (!Id || !Name ||  !Full_name || !Latitude|| !Longitude|| !Display_order){
+      mensaje = "no estan";
+  }
+  /*if (Name.length < 3 || Full_name.length < 3){
+      mensaje = "<3";
+  }*/
   else {
       let newProvince = {
          id: Id, 

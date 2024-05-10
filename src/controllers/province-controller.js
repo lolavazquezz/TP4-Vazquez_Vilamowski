@@ -20,9 +20,15 @@ router.get('/:id', async (req, res) => {
 router.post('', async (req, res) => {
     let entity = req.body;
     let mensaje = await svc.createAsync(entity);
-    if (!mensaje){
-        return res.status(400).send("Faltan campos o son nulos");
+    if (mensaje == "son nulos"){
+        return res.status(400).send("Hay campos incorrectos");
     }
+    if (mensaje == "no estan"){
+        return res.status(400).send("Faltan campos");
+    }
+    /*if (mensaje == "<3"){
+        return res.status(400).send("El nombre y el nombre completo de la provincia no puede ser menor a 3");
+    }*/
     else{
         return res.status(201).send("Provincia creada satisfactoriamente");
     }
